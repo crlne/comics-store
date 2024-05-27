@@ -1,26 +1,63 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div id="app">
+    <SiteHeader :cartItemCount="cartItemCount" @toggle-cart="toggleCart" />
+    <ComicsPanel />
+    <PromoButtons />
+    <router-view @add-to-cart="addToCart" />
+    <ShoppingCart
+      :cartItems="cartItems"
+      :visible="showCart"
+      @update-quantity="updateQuantity"
+      @remove-from-cart="removeFromCart"
+      @toggle-cart="toggleCart"
+    />
+    <ComicsFooter />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import { mapGetters, mapActions } from 'vuex';
+import SiteHeader from './components/layouts/SiteHeader'
+import ComicsPanel from './components/layouts/ComicsPanel'
+import PromoButtons from './components/common/PromoButtons'
+import ShoppingCart from './components/common/ShoppingCart'
+import ComicsFooter from './components/layouts/ComicsFooter'
 
 export default {
-  name: 'App',
   components: {
-    HelloWorld
+    SiteHeader,
+    ComicsPanel,
+    PromoButtons,
+    ShoppingCart,
+    ComicsFooter
+  },
+  computed: {
+    ...mapGetters(['cartItems', 'showCart', 'cartItemCount'])
+  },
+  methods: {
+    ...mapActions(['addToCart', 'updateQuantity', 'removeFromCart', 'toggleCart'])
   }
-}
+};
 </script>
 
 <style>
+html, body, #app {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  box-sizing: border-box;
+  overflow-x: hidden; 
+}
+
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  width: 100%; 
+}
+
+header, .panel, .promo-buttons, footer {
+  margin: 0;
+  padding: 0;
 }
 </style>
