@@ -1,12 +1,6 @@
 {
     "version": 2,
-    "builds": [
-      {
-        "src": "src/**/*",
-        "use": "@vercel/node"
-      }
-    ],
-    "env": {
-      "NODE_VERSION": "16.x"
-    }
+    "routes": [
+      { "src": "/(.*)", "dest": "/src/main.js" }
+    ]
   }  
