@@ -1,10 +1,12 @@
 const { defineConfig } = require('@vue/cli-service');
-module.exports = {
+
+module.exports = defineConfig({
+  publicPath: process.env.NODE_ENV === 'production' ? '/' : '/',
   devServer: {
-    host: '0.0.0.0', // ou 'localhost'
+    host: '0.0.0.0',
     port: 8080,
-    public: 'http://192.168.18.128:8080', // ajuste isso conforme necessário
-    disableHostCheck: true, // use isso se você estiver em um ambiente de rede local
-  }
-};
+    public: 'http://192.168.18.128:8080',
+    disableHostCheck: true,
+  },
+});
 
